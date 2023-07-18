@@ -22,6 +22,8 @@ To create a DLL I'd recommend using an IDE like Visual Studio, Microsoft has a g
 ## Creating your Header and Source Files
 
 1. Start off by creating a header file `ExampleUnityDll.h` and adding the following code:
+
+**Note:** You are not limited to functions, structs and classes can be exported as well!
 ```c++  
 #pragma once
 
@@ -38,9 +40,31 @@ extern "C" EXAMPLEUNITYDLL_API void yourFunction_1();
 extern "C" EXAMPLEUNITYDLL_API void yourFunction_N();
 ```
 
+For multiline exporting:
+
+```c++
+#pragma once
+
+#ifdef EXAMPLEUNITYDLL_EXPORTS
+#define EXAMPLEUNITYDLL_API __declspec(dllexport)
+#else
+#define EXAMPLEUNITYDLL_API __declspec(dllimport)
+#endif
+
+extern "C"
+{
+  __declspec(dllexport) void yourFunction_1();
+  // .
+  // .
+  // .
+  __declspec(dllexport) void yourFunction_N();
+}
+```
+**⚠️Important⚠️** This may be more straight forward if you have many functions, but make sure to add `__declspec(dllexport)` before definitions in the source file as well!!!
+
 This file will contain all your function declarations and make sure they are properly exported.
 
-**NOTE:** Replace all occurances of `ExampleUnityDll` or `EXAMPLEUNITYDLL` with the name of your DLL.
+**Note:** Replace all occurances of `ExampleUnityDll` or `EXAMPLEUNITYDLL` with the name of your DLL.
 
 2. Create a source file `ExampleUnityDll.cpp` this will contain your function definitions.
 ```c++
