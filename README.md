@@ -40,7 +40,7 @@ extern "C" EXAMPLEUNITYDLL_API void yourFunction_1();
 extern "C" EXAMPLEUNITYDLL_API void yourFunction_N();
 ```
 
-For multiline exporting:
+For multiline exporting (macros aren't used in this example):
 
 ```c++
 #pragma once
@@ -60,7 +60,6 @@ extern "C"
   __declspec(dllexport) void yourFunction_N();
 }
 ```
-**⚠️Important⚠️** This may be more straight forward if you have many functions, but make sure to add `__declspec(dllexport)` before definitions in the source file as well!!!
 
 This file will contain all your function declarations and make sure they are properly exported.
 
